@@ -1,0 +1,139 @@
+\newcommand\note[2][]{%
+	\if!#1!%
+	\stepcounter{footnote}\footnotetext{#2}%
+	\else%
+	{\renewcommand\thefootnote{#1}%
+		\footnotetext{#2}}%
+	\fi}
+
+%authors and affiliations
+\newtoks\pauthtoks
+\newcommand{\pauthor}[2][]{%
+	\if!#1!%
+	\pauthtoks=\expandafter{\the\pauthtoks#2\ }%
+	\else
+	\pauthtoks=\expandafter{\the\pauthtoks#2$^{#1}$\ }%
+	\fi
+}
+
+\newtoks\paffiltoks\newif\ifpaffil\paffilfalse
+\newcommand{\paffiliation}[2][]{%
+	\paffiltrue
+	\if!#1!%
+	\paffiltoks=\expandafter{\the\paffiltoks{\item[]#2}}%
+	\else
+	\paffiltoks=\expandafter{\the\paffiltoks{\item[$^{#1}$]#2}}%
+	\fi
+}
+
+\newcommand\afterAuthorSpace{\vskip-13pt plus1pt minus4pt}
+\newcommand\afterAffiliationSpace{\vskip-13pt plus1pt minus4pt}%{\vskip-2pt plus3pt minus0.5pt}
+\newlength{\affiliationsSep}\setlength{\affiliationsSep}{-3pt}
+
+%\newcommand{\paperauthors}{
+%\makebox[\linewidth][c]{%
+%\begin{minipage}{0.9\linewidth}
+%{\renewcommand{\baselinestretch}{.9}
+%		{\Large \itshape\raggedright\the\pauthtoks\par}}
+%	\afterAuthorSpace\
+%	\ifpaffil\begin{list}{}{%
+%			\setlength{\leftmargin}{0.28cm}%
+%			\setlength{\labelsep}{0pt}%
+%			\setlength{\itemsep}{\affiliationsSep}}
+%		\the\paffiltoks
+%	\end{list}\fi
+%	\afterAffiliationSpace
+%	\newtoks\pauthtoks
+%	\newtoks\paffiltoks\newif\ifpaffil\paffilfalse
+%\end{minipage}}%
+%}
+\newcommand{\papertitle}[1]{\clearpage
+\vspace*{40pt}
+\noindent{\Huge\textbf{#1}}
+\vspace*{25pt}}
+
+\newcommand{\paperauthors}{
+\makebox[\linewidth][l]{%
+\begin{minipage}{0.95\linewidth}
+{\renewcommand{\baselinestretch}{.95}
+		{\Large \itshape\raggedright\the\pauthtoks\par}}
+	\afterAuthorSpace\
+	\ifpaffil\begin{list}{}{%
+			\setlength{\leftmargin}{0.5cm}%
+			\setlength{\labelsep}{0pt}%
+			\setlength{\itemsep}{\affiliationsSep}}
+		\the\paffiltoks
+	\end{list}\fi
+	\afterAffiliationSpace
+	\newtoks\pauthtoks
+	\newtoks\paffiltoks\newif\ifpaffil\paffilfalse
+\end{minipage}}%
+}
+
+\newcommand{\paperabstract}[1]{
+\makebox[\linewidth][c]{%
+\begin{minipage}{0.8\linewidth}
+\textbf{Abstract: }
+#1
+\end{minipage}}%
+}
+
+% Greek letters
+\newcommand{\uLambda}{\mathrm{\Lambda}}
+\newcommand{\uOmega}{\mathrm{\Omega}}
+\newcommand{\uPsi}{\mathrm{\Psi}}
+\newcommand{\uPhi}{\mathrm{\Phi}}
+\newcommand{\uSigma}{\mathrm{\Sigma}}
+\newcommand{\uTheta}{\mathrm{\Theta}}
+\newcommand{\uDelta}{\mathrm{\Delta}}
+\newcommand{\uGamma}{\mathrm{\Gamma}}
+
+\newcommand{\LCDM}{\ensuremath{\uLambda}CDM\xspace}
+
+\newcommand{\diff}{\mathrm{d}}
+\newcommand{\rme}{\mathrm{e}}
+\newcommand{\rmi}{\mathrm{i}}
+\newcommand{\Mpbh}{\ensuremath{M_{\text{PBH}}}}
+\newcommand{\fpbh}{\ensuremath{f_{\mathrm{PBH}}}}
+\newcommand{\mcrit}{\ensuremath{M_{\mathrm{crit}}}}
+
+\newcommand{\pdiff}[2]{\frac{\partial #1}{\partial #2}}
+
+\newcommand{\specialcell}[2][c]{%
+  \begin{tabular}[#1]{@{}c@{}}#2\end{tabular}}
+
+\newcommand{\powt}[1]{\ensuremath{\cdot 10^{#1}}}
+
+\newcommand{\cdm}{\mathrm{cdm}}
+
+\newcommand{\red}[1]{{\color{red} (#1)}}
+
+%Derivation commands
+
+\newcommand{\intdnu}[1]{\frac{d^3 #1}{\left(2\pi\right)^3 E_\nu\!\left(#1\right)}}
+
+\newcommand{\intdnutwo}[1]{\frac{d^3 #1}{\left(2\pi\right)^3 2E_\nu\!\left(#1\right)}}
+
+\newcommand{\intdc}[1]{\frac{d^3 #1}{\left(2\pi\right)^3 E_\chi\!\left(#1\right)}}
+
+\newcommand{\intdctwo}[1]{\frac{d^3 #1}{\left(2\pi\right)^3 2E_\chi\!\left(#1\right)}}
+
+\newcommand{\gq}[1]{g\!\left(\mathbf{q}#1\right)}
+
+\newcommand{\fp}[1]{f\!\left(\mathbf{p}#1\right)}
+
+\newcommand{\Enup}[1]{E_\nu\!\left(\mathbf{p}#1\right)}
+\newcommand{\Echi}[1]{E_\chi\!\left(#1\right)}
+
+\newcommand{\Ep}{E_\nu\!\left(p\right)}
+
+\newcommand{\qpr}{\mathbf{q}+\mathbf{p}-\mathbf{p}'}
+\newcommand{\gqpr}{g\!\left(\mathbf{q}+\mathbf{p}-\mathbf{p}'\right)}
+
+\newcommand{\qb}{\mathbf{q}}
+\newcommand{\mypb}{\mathbf{p}}
+\newcommand{\mv}{m_\chi\mathbf{v}_\chi}
+
+\newcommand{\fz}[1]{f^{(0)}\!\left(p#1\right)}
+\newcommand{\fo}[1]{f^{(1)}\!\left(\mathbf{p}#1\right)}
+

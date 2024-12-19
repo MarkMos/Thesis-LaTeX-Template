@@ -1,0 +1,126 @@
+\documentclass[english,twoside,onecolumn,a4paper,oldfontcommands]{memoir}
+\input{preamble}
+
+%% Figures
+	\usepackage{graphicx}
+	\usepackage[labelfont=bf,textfont={it},size=small]{caption}
+	\usepackage[labelfont=bf,textfont={it}]{subcaption}
+	\usepackage[compat=1.1.0]{tikz-feynman}
+	%\usepackage{circuitikz}
+	\usepackage{tikz}
+	\usepackage{environ}
+	\usepackage{pgfplots}
+	\usetikzlibrary{shapes.geometric,arrows}
+    \tikzstyle{flow} = [rectangle, rounded corners, minimum width=2cm, minimum height=0.5cm,text centered, draw=black, fill=blue!30]
+    \tikzstyle{arrow} = [thick,->,>=stealth]
+	\usepackage{pgf-pie}
+		\newlength\figureheight
+		\newlength\figurewidth
+		\pgfplotsset{compat=newest}
+		\usepgfplotslibrary{external}
+		\usepgfplotslibrary{groupplots}
+		\usetikzlibrary{pgfplots.external}
+		\usetikzlibrary{fadings}
+		\tikzexternalize % Used to externalize tikz figure such they are not recreated every day
+		%\tikzset{external/force remake} % Use when all figure must be remade
+		\tikzsetexternalprefix{tikz2pdf/}
+
+		\makeatletter
+		\newcounter{tikz@scale@num}
+		\newsavebox{\measure@tikzpicture}
+		\NewEnviron{scaletikzpicturetowidth}[2][]{%
+		  % optional argument #1 is passed to \tikzsetnextfilename if not empty
+		  \stepcounter{tikz@scale@num}%
+		  \def\tikz@width{#2}%
+		  \def\tikzscale{1}\begin{lrbox}{\measure@tikzpicture}%
+		  \BODY
+		  \end{lrbox}%
+		  \pgfmathparse{#2/\wd\measure@tikzpicture}%
+		  \ifcsname tikzscale\number\value{tikz@scale@num}\endcsname\else
+			  \expandafter\xdef\csname tikzscale\number\value{tikz@scale@num}\endcsname{\pgfmathresult}%
+		  \fi
+		  \tikzset{external/system call={pdflatex \tikzexternalcheckshellescape -halt-on-error -interaction=batchmode -jobname "\image" "\string\expandafter\string\edef\string\csname\space tikzscale\number\value{tikz@scale@num}\string\endcsname{\csname tikzscale\number\value{tikz@scale@num}\endcsname}\texsource"}}%
+		  \edef\tikzscale{\csname tikzscale\number\value{tikz@scale@num}\endcsname}%
+		  \ifcat$#1$\else\tikzsetnextfilename{#1}\fi
+		  \BODY
+		}
+		\makeatother
+
+		% \usepackage{eso-pic}
+		% \newcommand\BackgroundPic{%
+		% 	\put(0,0){%
+		% 		\parbox[b][\paperheight]{\paperwidth}{%
+		% 			\vfill
+		% 			\centering
+		% 			\includegraphics[width=1.02\paperwidth,height=1.02\paperheight,%
+		% 			keepaspectratio]{figures/coverpic.png}%
+		% 			\vfill
+		% }}}
+\input{commands}
+
+%% Defines thesistitle, authorname, studentnumber, supervisor, and all other personal stuff
+%\newcommand{\thesistitle}{Dark Matter and Revelations: \\ Investigating the nature of dark matter with cosmology and astrophysics}
+\newcommand{\thesistitle}{Thesis Title}
+\renewcommand{\author}{Firstname Lastname}
+\newcommand{\supervisor}{Your Supervisor(s)}
+\newcommand{\email}{\url{your@email.com}}
+\newcommand{\submdate}{Submission Date}
+\newcommand{\submyear}{Year}
+
+\newcommand{\institute}{My institute}
+\newcommand{\faculty}{My faculty}
+\newcommand{\university}{My university}
+\newcommand{\address}{Address\\ Line 2\\ Country}
+% Replace by a nice picture related to the thesis
+%\newcommand{\coverPicPath}{figures/CDM_screenshot_2.png}%coverPic.pdf}
+\newcommand{\coverPicDescription}{A placeholder picture}
+\newcommand{\personalquote}{\epigraph{Some quote}{--- \textup{Some person}}}   
+
+\begin{document}
+%\AddToShipoutPicture*{\BackgroundPic}
+
+	%% Coverpage, titlepage, colophon
+	\frontmatter
+		%\input{frontmatter/coverPage}
+		\input{frontmatter/titlePage} 
+		\restoregeometry
+		\input{frontmatter/colophon} 
+		
+	%% Outline, table of contents, acknowledgements and preface
+			
+		\thispagestyle{empty} % This page is intentional left blank
+		\phantom{blabla}
+		\newpage
+		\pagestyle{fancy}
+        \include{frontmatter/authorship}
+		\include{frontmatter/acknowledgements}
+		\include{frontmatter/abstract}
+		\tableofcontents 
+		\clearpage
+	
+		%% The actual thesis
+	\mainmatter
+		%\pagestyle{headings}
+		\part{Review}
+        \label{part:review}
+		%\include{mainmatter/introduction}
+		\include{mainmatter/chap1}
+		\part{Research Works}
+        \label{part:papers}
+		\include{mainmatter/chap2}
+		
+	\backmatter
+	%% Bibliography
+	\renewcommand*{\bibfont}{\footnotesize}
+	\printbibliography
+	\renewcommand*{\bibfont}{\raggedright}
+%	\clearpage
+%	\listoffigures
+%	\clearpage
+%	\listoftables
+	%\clearpage
+	%\printindex
+	
+	%\include{frontmatter/backpage}
+
+\end{document}

@@ -1,0 +1,77 @@
+
+\usepackage[utf8]{inputenc}
+%\usepackage[english]{babel}
+\usepackage[british]{babel}
+
+
+
+		
+%% Index
+%\usepackage{idxlayout}
+%\makeindex
+
+
+%% Math
+	\usepackage{mathtools,mathrsfs} 
+	\usepackage{amsmath,amssymb}
+	\usepackage{bbold}
+	\usepackage{bm,bbm}
+	\usepackage{siunitx}
+	\usepackage{isomath}
+	\usepackage{physics}
+	\usepackage[Symbolsmallscale]{upgreek}
+	\usepackage{wasysym}
+	\usepackage{tensor}
+
+%% Drafts
+	\usepackage{lipsum}
+	\usepackage[draft]{fixme}
+	\usepackage{xspace}
+	\usepackage{xcolor}
+	
+%% Pagesetup
+	\usepackage[bottom=3.6cm,top=3cm]{geometry}
+	\linespread{1.15}
+	\usepackage{microtype}
+	\let\footruleskip\undefined
+	\usepackage{fancyhdr}
+		\fancyhf{}
+		\fancyhead[LE]{\itshape \nouppercase{\leftmark}}
+		\fancyhead[RO]{\itshape \nouppercase{\rightmark}}
+		\fancyfoot[LE]{\thepage}
+		\fancyfoot[RO]{\thepage}
+		\renewcommand{\headrulewidth}{0pt}
+	\usepackage{contour}
+	
+
+%% Bibliography
+	\usepackage[backend=biber,sorting=none,maxbibnames=4,style=numeric-comp]{biblatex}
+	\addbibresource{references.bib}
+	%\addbibresource{references-aux.bib}
+	\AtEveryBibitem{%
+       \ifentrytype{article}
+          {\clearfield{url}\clearfield{urlyear}}
+          {}%
+    }
+	\AtEveryBibitem{%
+       \ifentrytype{misc}
+          {\clearfield{url}\clearfield{urlyear}}
+          {}%
+    }
+
+%% Links and refs
+	\usepackage{url}
+	\usepackage[colorlinks=true,linkcolor=black,citecolor=black,urlcolor=black]{hyperref}
+	\usepackage[capitalise]{cleveref}
+
+
+%% Layout
+	\setsecnumdepth{subsection}
+	\setcounter{tocdepth}{1}%{2}
+	\chapterstyle{veelo}
+	%\chapterstyle{ell}
+
+%% For quote
+	\epigraphfontsize{\small\itshape}
+	\setlength\epigraphwidth{8cm}
+	\setlength\epigraphrule{0pt}
